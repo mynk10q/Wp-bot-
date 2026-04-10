@@ -15,16 +15,22 @@ export default async function handler(req, res) {
       return res.send("❌ No data found");
     }
 
-    const user = data.result[0];
+    let reply = "";
 
-    const reply = `
+    data.result.forEach((user, i) => {
+      reply += `
+🔎 Result ${i + 1}
+
 📱 Number: ${user.mobile}
 👤 Name: ${user.name}
 👨 Father: ${user.father_name}
 🏠 Address: ${user.address}
 📍 Circle: ${user.circle}
 🆔 ID: ${user.id_number}
+
+------------------------
 `;
+    });
 
     res.setHeader("Content-Type", "text/xml");
     res.send(`<Response><Message>${reply}</Message></Response>`);
